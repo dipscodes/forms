@@ -1,5 +1,3 @@
-import { BsHandThumbsUp } from "react-icons/bs";
-
 interface Props {
   classname: string;
   index: number;
@@ -52,7 +50,7 @@ const MCQ = ({ classname, index, question, options }: Props) => {
         {index} : {question}
       </div>
       <div className="h-5/6 w-full flex flex-col justify-start items-start pl-12 text-lg">
-        <div>
+        <div className="h-auto w-auto flex flex-col justify-between items-start">
           {options.map((option: string) => {
             return (
               <div
@@ -70,10 +68,6 @@ const MCQ = ({ classname, index, question, options }: Props) => {
           <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative">
             Ok
           </div>
-          <BsHandThumbsUp
-            size={30}
-            className="absolute bottom-1/4 -right-3/4"
-          />
         </div>
       </div>
     </div>
