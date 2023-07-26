@@ -20,7 +20,33 @@ const ScaleQuestion = ({ classname, index, question, options }: Props) => {
         <div className="w-auto h-[60px] min-h-[60px] min-w-full mb-4 flex flex-row">
           {numbers.map((value) => {
             return (
-              <div key={value} className="h-full w-[60px] mx-1 bg-blue-400 rounded-md border-2 border-solid border-blue-900 flex flex-row justify-center items-center cursor-pointer hover:bg-blue-500 text-white text-xl">
+              <div
+                key={value}
+                className="h-full w-[60px] mx-1 bg-blue-200 rounded-md border-2 border-solid border-blue-900 flex flex-row justify-center items-center cursor-pointer text-blue-700 text-xl"
+                onClick={(e) => {
+                  const targetElement = e.target as HTMLDivElement;
+                  if (
+                    window.getComputedStyle(targetElement).backgroundColor ===
+                    "rgb(191, 219, 254)"
+                  ) {
+                    const parentElement =
+                      targetElement.parentNode as HTMLElement;
+                    const childElements = parentElement.children;
+                    const siblingElements = Array.from(
+                      childElements
+                    ) as HTMLElement[];
+                    siblingElements.forEach((element) => {
+                      if (element === targetElement) {
+                        element.style.backgroundColor = "rgb(37, 99, 235)";
+                        element.style.color = "white";
+                      } else {
+                        element.style.backgroundColor = "rgb(191, 219, 254)";
+                        element.style.color = "rgb(29, 78, 216)";
+                      }
+                    });
+                  }
+                }}
+              >
                 {value}
               </div>
             );

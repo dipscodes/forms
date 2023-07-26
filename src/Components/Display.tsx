@@ -11,7 +11,7 @@ const Display = () => {
           classname=""
           index={1}
           question="What is your favorite color?*"
-          options={["blue", "red", "yellow", "green", "yellow", "green"]}
+          options={["blue", "red", "yellow", "green"]}
         />
       </OneQForm>
       <OneQForm classname="">
