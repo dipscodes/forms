@@ -35,6 +35,8 @@ const Display = () => {
 
     const api_url = process.env.API_URL as string;
 
+    console.log(api_url, process.env.CONNECTION_STRING_DB);
+
     fetch(api_url, {
       method: "POST",
       body: formData,
