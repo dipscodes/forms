@@ -2,10 +2,10 @@ interface Props {
   classname: string;
   index: number;
   question: string;
-  options: string[];
+  getScaleAnswer(ans: number): void;
 }
 
-const ScaleQuestion = ({ classname, index, question, options }: Props) => {
+const ScaleQuestion = ({ classname, index, question, getScaleAnswer }: Props) => {
   const numbers: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
   const mouseEnter = (event: MouseEvent) => {
     (event.target as HTMLDivElement).style.backgroundColor =
@@ -18,7 +18,7 @@ const ScaleQuestion = ({ classname, index, question, options }: Props) => {
     (event.target as HTMLDivElement).style.color = "rgb(29, 78, 216)";
   };
 
-  const onOptionClick = (e: any) => {
+  const onOptionClick = (e: any, value: number) => {
     const targetElement = e.target as HTMLDivElement;
 
     if (
@@ -30,10 +30,33 @@ const ScaleQuestion = ({ classname, index, question, options }: Props) => {
       const siblingElements = Array.from(childElements) as HTMLElement[];
       siblingElements.forEach((element) => {
         if (element === targetElement) {
+          getScaleAnswer(value);
           element.style.backgroundColor = "rgb(37, 99, 235)";
           element.style.color = "white";
           element.removeEventListener("mouseenter", mouseEnter);
           element.removeEventListener("mouseleave", mouseLeave);
+        } else {
+          element.style.backgroundColor = "rgb(191, 219, 254)";
+          element.style.color = "rgb(29, 78, 216)";
+          element.addEventListener("mouseenter", mouseEnter);
+          element.addEventListener("mouseleave", mouseLeave);
+        }
+      });
+    }
+    if (
+      window.getComputedStyle(targetElement).backgroundColor ===
+      "rgb(37, 99, 235)"
+    ) {
+      console.log("sme");
+      const parentElement = targetElement.parentNode as HTMLElement;
+      const childElements = parentElement.children;
+      const siblingElements = Array.from(childElements) as HTMLElement[];
+      siblingElements.forEach((element) => {
+        if (element === targetElement) {
+          element.style.backgroundColor = "rgb(191, 219, 254)";
+          element.style.color = "rgb(29, 78, 216)";
+          element.addEventListener("mouseenter", mouseEnter);
+          element.addEventListener("mouseleave", mouseLeave);
         } else {
           element.style.backgroundColor = "rgb(191, 219, 254)";
           element.style.color = "rgb(29, 78, 216)";
@@ -58,7 +81,7 @@ const ScaleQuestion = ({ classname, index, question, options }: Props) => {
               <div
                 key={value}
                 className="h-full w-[60px] mx-1 bg-blue-200 rounded-md border-2 border-solid border-blue-900 flex flex-row justify-center items-center cursor-pointer text-blue-700 text-xl hover:bg-blue-500 hover:text-white transition-all duration-75 ease-in-out"
-                onClick={onOptionClick}
+                onClick={(e) => onOptionClick(e, value)}
               >
                 {value}
               </div>
