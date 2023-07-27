@@ -3,9 +3,10 @@ interface Props {
   index: number;
   question: string;
   options: string[];
+  getMcqAnswer(ans: string): void;
 }
 
-const MCQ = ({ classname, index, question, options }: Props) => {
+const MCQ = ({ classname, index, question, options, getMcqAnswer }: Props) => {
   const mouseEnter = (event: MouseEvent) => {
     (event.target as HTMLDivElement).style.backgroundColor =
       "rgb(59, 130, 246)";
@@ -26,9 +27,10 @@ const MCQ = ({ classname, index, question, options }: Props) => {
     ) {
       const parentElement = targetElement.parentNode as HTMLElement;
       const childElements = parentElement.children;
-      const siblingElements = Array.from(childElements) as HTMLElement[];
+      const siblingElements = Array.from(childElements) as HTMLDivElement[];
       siblingElements.forEach((element) => {
         if (element === targetElement) {
+          getMcqAnswer(element.innerText);
           element.style.backgroundColor = "rgb(37, 99, 235)";
           element.style.color = "white";
           element.removeEventListener("mouseenter", mouseEnter);
