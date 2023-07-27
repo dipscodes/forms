@@ -37,7 +37,7 @@ const Display = () => {
 
     console.log(api_url, process.env.CONNECTION_STRING_DB);
 
-    fetch(api_url, {
+    fetch("https://forms-eta-nine.vercel.app/api/forms", {
       method: "POST",
       body: formData,
     });
