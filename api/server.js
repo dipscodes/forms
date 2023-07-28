@@ -7,8 +7,7 @@ import fs from "fs";
 import path from "path";
 import "dotenv/config";
 
-const connection_string =
-  "mongodb+srv://vikram:aditya@vikram.ekz7wos.mongodb.net/question-db";
+const connection_string = process.env.CONNECTION_STRING_DB;
 
 const app = express();
 const port = 5000;
