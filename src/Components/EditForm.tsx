@@ -15,7 +15,6 @@ const Display = () => {
   const [formData, setFormData] = useState<object>({});
 
   const { id } = useParams();
-  console.log(window.location.href);
 
   useEffect(() => {
     (async () => {
@@ -24,6 +23,11 @@ const Display = () => {
     });
       const v = await res.json();
       setFormData(v);
+      setMcqAnswer(v.mcq);
+      setBroadAnswer(v.broad);
+      setScaleAnswer(v.scale);
+      setFile(v.file);
+      console.log(v);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -64,6 +68,7 @@ const Display = () => {
           question="What is your favorite color?*"
           options={["blue", "red", "yellow", "green"]}
           getMcqAnswer={getMcqAnswer}
+          input={mcqAnswer}
         />
       </OneQForm>
       <OneQForm classname="">
@@ -72,6 +77,7 @@ const Display = () => {
           index={1}
           question="What is your favorite color?*"
           getBroadAnswer={getBroadAnswer}
+          input={broadAnswer}
         />
       </OneQForm>
       <OneQForm classname="">
@@ -80,6 +86,7 @@ const Display = () => {
           index={1}
           question="What is your favorite color?*"
           getScaleAnswer={getScaleAnswer}
+          input={scaleAnswer}
         />
       </OneQForm>
       <OneQForm>
@@ -88,6 +95,7 @@ const Display = () => {
           index={1}
           question="What is your favorite color?*"
           getFile={getFile}
+          input={file}
         />
       </OneQForm>
       <OneQForm classname="">

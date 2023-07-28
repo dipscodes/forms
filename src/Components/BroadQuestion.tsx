@@ -2,10 +2,11 @@ interface Props {
   classname: string;
   index: number;
   question: string;
+  input?: string;
   getBroadAnswer(ans: string): void;
 }
 
-const BroadQuestion = ({ classname, index, question, getBroadAnswer }: Props) => {
+const BroadQuestion = ({ classname, index, question, input, getBroadAnswer }: Props) => {
   return (
     <div
       className={`w-8/12 h-auto min-h-[50%] flex flex-col justify-start items-start ${classname}`}
@@ -19,6 +20,7 @@ const BroadQuestion = ({ classname, index, question, getBroadAnswer }: Props) =>
           className="w-full h-auto bg-transparent focus:outline-none text-2xl mb-4 border-b-2 border-solid border-blue-700 py-2"
           placeholder="Type Your Answer Here ..."
           onChange={(e) => getBroadAnswer(e.target.value)}
+          value={input}
         />
         <div className="relative">
           <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative">
@@ -29,5 +31,9 @@ const BroadQuestion = ({ classname, index, question, getBroadAnswer }: Props) =>
     </div>
   );
 };
+
+BroadQuestion.defaultProps = {
+  input: ""
+}
 
 export default BroadQuestion;

@@ -3,10 +3,11 @@ interface Props {
   index: number;
   question: string;
   options: string[];
+  input?: string;
   getMcqAnswer(ans: string): void;
 }
 
-const MCQ = ({ classname, index, question, options, getMcqAnswer }: Props) => {
+const MCQ = ({ classname, index, question, options, input, getMcqAnswer }: Props) => {
   const mouseEnter = (event: MouseEvent) => {
     (event.target as HTMLDivElement).style.backgroundColor =
       "rgb(59, 130, 246)";
@@ -82,6 +83,10 @@ const MCQ = ({ classname, index, question, options, getMcqAnswer }: Props) => {
                 key={option}
                 className="border-2 border-solid text-blue-700 border-black my-2 px-4 py-2 rounded-lg min-w-[150px] cursor-pointer bg-blue-200 hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-75"
                 onClick={(e) => onOptionClick(e, option)}
+                style={{
+                  backgroundColor: (input === option)? "rgb(29, 78, 216)" : "rgb(191, 219, 254)",
+                  color: (input === option)? "white" : "rgb(29, 78, 216)",
+                }}
               >
                 {option.toLocaleUpperCase()}
               </div>
@@ -98,5 +103,9 @@ const MCQ = ({ classname, index, question, options, getMcqAnswer }: Props) => {
     </div>
   );
 };
+
+MCQ.defaultProps = {
+  input: ""
+}
 
 export default MCQ;

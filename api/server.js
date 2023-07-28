@@ -72,6 +72,7 @@ app.post("/api/forms", upload.single("file"), async (req, res) => {
 app.get("/api/forms/:id", async(req, res) => {
   try {
     const formData = await Form.findById(req.params.id);
+    console.log(formData);
     res.json(formData);
   } catch (error) {
     res.status(500).json({ error: "Error getting form question." });

@@ -2,10 +2,11 @@ interface Props {
   classname: string;
   index: number;
   question: string;
+  input: number;
   getScaleAnswer(ans: number): void;
 }
 
-const ScaleQuestion = ({ classname, index, question, getScaleAnswer }: Props) => {
+const ScaleQuestion = ({ classname, index, question, input, getScaleAnswer }: Props) => {
   const numbers: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
   const mouseEnter = (event: MouseEvent) => {
     (event.target as HTMLDivElement).style.backgroundColor =
@@ -82,6 +83,10 @@ const ScaleQuestion = ({ classname, index, question, getScaleAnswer }: Props) =>
                 key={value}
                 className="h-full w-[60px] mx-1 bg-blue-200 rounded-md border-2 border-solid border-blue-900 flex flex-row justify-center items-center cursor-pointer text-blue-700 text-xl hover:bg-blue-500 hover:text-white transition-all duration-75 ease-in-out"
                 onClick={(e) => onOptionClick(e, value)}
+                style={{
+                  backgroundColor: (input === value)? "rgb(29, 78, 216)" : "rgb(191, 219, 254)",
+                  color: (input === value)? "white" : "rgb(29, 78, 216)",
+                }}
               >
                 {value}
               </div>
@@ -97,5 +102,10 @@ const ScaleQuestion = ({ classname, index, question, getScaleAnswer }: Props) =>
     </div>
   );
 };
+
+ScaleQuestion.defaultProps = {
+  input: 0
+}
+
 
 export default ScaleQuestion;
