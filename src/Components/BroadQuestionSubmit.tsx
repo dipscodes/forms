@@ -20,11 +20,6 @@ const BroadQuestionSubmit = ({ classname, index, question, getBroadAnswer }: Pro
           placeholder="Type Your Answer Here ..."
           onChange={(e) => getBroadAnswer(e.target.value)}
         />
-        <div className="relative">
-          <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative">
-            Ok
-          </div>
-        </div>
       </div>
     </div>
   );

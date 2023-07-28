@@ -30,12 +30,7 @@ const File = ({ classname, index, question, input, getFile }: Props) => {
             console.log((document.getElementById("file-id") as any).files[0]);
             getFile((e as any).target.files[0]);
           }}
-        />       
-        <div className="relative">
-          <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative">
-            Ok
-          </div>
-        </div>
+        />
         {(input)? (
           <div className="flex flex-col justify-start items-center"><img alt="worked" src={`data:image/png;base64,${toBase64((input as any).data.data)}`}/></div>
         ) : (null)}
