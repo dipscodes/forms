@@ -4,8 +4,8 @@ import OneQForm from "./OneQFrom";
 import MCQ from "./MCQ";
 import BroadQuestion from "./BroadQuestion";
 import ScaleQuestion from "./ScaleQuestion";
-import Submit from "./Submit";
 import File from "./File";
+import PreviewOnly from "./PreviewOnly";
 
 const Display = () => {
   const [mcqAnswer, setMcqAnswer] = useState<string>("");
@@ -44,18 +44,18 @@ const Display = () => {
     setFile(ans);
   };
 
-  const submitAnwer = () => {
-    const formData = new FormData();
-    formData.append("mcq", mcqAnswer);
-    formData.append("broad", broadAnswer);
-    formData.append("scale", scaleAnswer.toString());
-    formData.append("file", file);
+  // const submitAnwer = () => {
+  //   const formData = new FormData();
+  //   formData.append("mcq", mcqAnswer);
+  //   formData.append("broad", broadAnswer);
+  //   formData.append("scale", scaleAnswer.toString());
+  //   formData.append("file", file);
 
-    fetch("http://146.190.87.202:5000/api/forms", {
-      method: "POST",
-      body: formData,
-    });
-  };
+  //   fetch("http://146.190.87.202:5000/api/forms", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  // };
 
   return (
     <div className="w-full h-[500vh] min-h-[500vh] flex flex-col justify-start items-center">
@@ -73,7 +73,7 @@ const Display = () => {
         <BroadQuestion
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite book?*"
           getBroadAnswer={getBroadAnswer}
           input={broadAnswer}
         />
@@ -82,7 +82,7 @@ const Display = () => {
         <ScaleQuestion
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite number?*"
           getScaleAnswer={getScaleAnswer}
           input={scaleAnswer}
         />
@@ -91,13 +91,13 @@ const Display = () => {
         <File
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite png image?*"
           getFile={getFile}
           input={file}
         />
       </OneQForm>
       <OneQForm classname="">
-        <Submit submitAnwer={submitAnwer} previewLink={id ?? ""} />
+        <PreviewOnly previewLink={id ?? ""} />
       </OneQForm>
     </div>
   );

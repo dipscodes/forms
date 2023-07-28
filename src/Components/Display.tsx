@@ -39,7 +39,8 @@ const Display = () => {
         method: "POST",
         body: formData,
       });
-      setID((res as any)._id);
+      const data = await res.json();
+      setID(data._id);
     })();
   };
 
@@ -58,7 +59,7 @@ const Display = () => {
         <BroadQuestionSubmit
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite book?*"
           getBroadAnswer={getBroadAnswer}
         />
       </OneQForm>
@@ -66,7 +67,7 @@ const Display = () => {
         <ScaleQuestionSubmit
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite number?*"
           getScaleAnswer={getScaleAnswer}
         />
       </OneQForm>
@@ -74,14 +75,14 @@ const Display = () => {
         <File
           classname=""
           index={1}
-          question="What is your favorite color?*"
+          question="What is your favorite png image?*"
           getFile={getFile}
         />
       </OneQForm>
       <OneQForm classname="">
         <Submit
           submitAnwer={submitAnwer}
-          previewLink={`http://vikramadityacodes.in/${id}`}
+          previewLink={id}
         />
       </OneQForm>
     </div>
