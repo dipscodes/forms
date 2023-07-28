@@ -33,11 +33,7 @@ const Display = () => {
     formData.append("scale", scaleAnswer.toString());
     formData.append("file", file);
 
-    const api_url = process.env.API_URL as string;
-
-    console.log(api_url, process.env.CONNECTION_STRING_DB);
-
-    fetch("https://forms-eta-nine.vercel.app/api/forms", {
+    fetch("http://146.190.87.202:5000/api/forms", {
       method: "POST",
       body: formData,
     });

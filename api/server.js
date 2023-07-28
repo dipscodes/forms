@@ -56,7 +56,7 @@ app.post("/api/forms", upload.single("file"), async (req, res) => {
       scale: req.body.scale,
       file: {
         data: fs.readFileSync(
-          path.join(process.cwd() + "/api/" + req.file.filename)
+          path.join(process.cwd() + "/uploads/" + req.file.filename)
         ),
         contentType: "image/png",
       },
