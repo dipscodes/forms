@@ -1,10 +1,10 @@
 import OneQForm from "./OneQFrom";
-import MCQ from "./MCQ";
-import BroadQuestion from "./BroadQuestion";
-import ScaleQuestion from "./ScaleQuestion";
 import { useState } from "react";
 import Submit from "./Submit";
 import File from "./File";
+import MCQSubmit from "./MCQSubmit";
+import BroadQuestionSubmit from "./BroadQuestionSubmit";
+import ScaleQuestionSubmit from "./ScaleQuestionSubmit";
 
 const Display = () => {
   const [mcqAnswer, setMcqAnswer] = useState<string>("");
@@ -34,18 +34,19 @@ const Display = () => {
     formData.append("scale", scaleAnswer.toString());
     formData.append("file", file);
 
-    fetch("http://146.190.87.202:5000/api/forms", {
-      method: "POST",
-      body: formData,
-    })
-      .then((data) => data.json())
-      .then((data) => {setID(data._id)});
+    (async () => {
+      const res = await fetch("http://146.190.87.202:5000/api/forms", {
+        method: "POST",
+        body: formData,
+      });
+      setID((res as any)._id);
+    })();
   };
 
   return (
     <div className="w-full h-[500vh] min-h-[500vh] flex flex-col justify-start items-center">
       <OneQForm classname="">
-        <MCQ
+        <MCQSubmit
           classname=""
           index={1}
           question="What is your favorite color?*"
@@ -54,7 +55,7 @@ const Display = () => {
         />
       </OneQForm>
       <OneQForm classname="">
-        <BroadQuestion
+        <BroadQuestionSubmit
           classname=""
           index={1}
           question="What is your favorite color?*"
@@ -62,7 +63,7 @@ const Display = () => {
         />
       </OneQForm>
       <OneQForm classname="">
-        <ScaleQuestion
+        <ScaleQuestionSubmit
           classname=""
           index={1}
           question="What is your favorite color?*"
@@ -78,7 +79,10 @@ const Display = () => {
         />
       </OneQForm>
       <OneQForm classname="">
-        <Submit submitAnwer={submitAnwer} previewLink={`http://localhost:3000/${id}`}/>
+        <Submit
+          submitAnwer={submitAnwer}
+          previewLink={`http://vikramadityacodes.in/${id}`}
+        />
       </OneQForm>
     </div>
   );

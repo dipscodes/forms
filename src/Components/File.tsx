@@ -20,23 +20,25 @@ const File = ({ classname, index, question, input, getFile }: Props) => {
       <div className="h-1/6 w-full text-4xl">
         {index} : {question}
       </div>
-      <div className="h-5/6 w-full flex flex-col justify-start items-start pl-12 text-lg">
+      <div className="h-5/6 w-full flex flex-col justify-start items-start pl-12 text-lg max-h-[60px]">
         <input
           type="file"
           id="file-id"
-          className="w-full h-auto bg-transparent focus:outline-none text-2xl mb-4 border-b-2 border-solid border-blue-700 py-2"
+          className="w-full h-auto bg-transparent focus:outline-none text-2xl mb-4 border-b-2 border-solid border-blue-700 pb-12"
           placeholder="Type Your Answer Here ..."
           onChange={(e) => {
             console.log((document.getElementById("file-id") as any).files[0]);
             getFile((e as any).target.files[0]);
           }}
-        />
-        <img alt="worked" src={`data:image/png;base64,${toBase64((input as any).data.data)}`}/>
+        />       
         <div className="relative">
           <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative">
             Ok
           </div>
         </div>
+        {(input)? (
+          <div className="flex flex-col justify-start items-center"><img alt="worked" src={`data:image/png;base64,${toBase64((input as any).data.data)}`}/></div>
+        ) : (null)}
       </div>
     </div>
   );

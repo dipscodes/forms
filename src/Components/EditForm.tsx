@@ -12,24 +12,21 @@ const Display = () => {
   const [broadAnswer, setBroadAnswer] = useState<string>("");
   const [scaleAnswer, setScaleAnswer] = useState<number>(0);
   const [file, setFile] = useState<any>("");
-  const [formData, setFormData] = useState<object>({});
 
   const { id } = useParams();
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/api/forms/${id}`, {
-      method: "GET",
-    });
+      const res = await fetch(`http://146.190.87.202:5000/api/forms/${id}`, {
+        method: "GET",
+      });
       const v = await res.json();
-      setFormData(v);
       setMcqAnswer(v.mcq);
       setBroadAnswer(v.broad);
       setScaleAnswer(v.scale);
       setFile(v.file);
-      console.log(v);
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getMcqAnswer = (ans: string) => {
@@ -99,7 +96,7 @@ const Display = () => {
         />
       </OneQForm>
       <OneQForm classname="">
-        <Submit submitAnwer={submitAnwer} previewLink="" />
+        <Submit submitAnwer={submitAnwer} previewLink={id ?? ""} />
       </OneQForm>
     </div>
   );
