@@ -16,6 +16,7 @@ const Display = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    console.log(id);
     (async () => {
       const res = await fetch(`http://146.190.87.202:5000/api/forms/${id}`, {
         method: "GET",
