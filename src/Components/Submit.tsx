@@ -1,8 +1,9 @@
 interface Props {
   submitAnwer(): void;
+  previewLink: string;
 }
 
-const Submit = ({ submitAnwer }: Props) => {
+const Submit = ({ submitAnwer, previewLink='' }: Props) => {
 
   return (
     <div
@@ -15,6 +16,9 @@ const Submit = ({ submitAnwer }: Props) => {
         <div className="relative">
           <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative" onClick={() => submitAnwer()}>
             Submit
+          </div>
+          <div className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative" onClick={() => submitAnwer()}>
+            <a href={previewLink}>{previewLink}</a>
           </div>
         </div>
       </div>

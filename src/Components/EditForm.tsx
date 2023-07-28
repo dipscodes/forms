@@ -1,8 +1,9 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import OneQForm from "./OneQFrom";
 import MCQ from "./MCQ";
 import BroadQuestion from "./BroadQuestion";
 import ScaleQuestion from "./ScaleQuestion";
-import { useState } from "react";
 import Submit from "./Submit";
 import File from "./File";
 
@@ -11,7 +12,21 @@ const Display = () => {
   const [broadAnswer, setBroadAnswer] = useState<string>("");
   const [scaleAnswer, setScaleAnswer] = useState<number>(0);
   const [file, setFile] = useState<any>("");
-  const [id, setID] = useState<string>("");
+  const [formData, setFormData] = useState<object>({});
+
+  const { id } = useParams();
+  console.log(window.location.href);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`http://localhost:5000/api/forms/${id}`, {
+      method: "GET",
+    });
+      const v = await res.json();
+      setFormData(v);
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getMcqAnswer = (ans: string) => {
     setMcqAnswer(ans);
@@ -37,9 +52,7 @@ const Display = () => {
     fetch("http://146.190.87.202:5000/api/forms", {
       method: "POST",
       body: formData,
-    })
-      .then((data) => data.json())
-      .then((data) => {setID(data._id)});
+    });
   };
 
   return (
@@ -78,7 +91,7 @@ const Display = () => {
         />
       </OneQForm>
       <OneQForm classname="">
-        <Submit submitAnwer={submitAnwer} previewLink={`http://localhost:3000/${id}`}/>
+        <Submit submitAnwer={submitAnwer} previewLink="" />
       </OneQForm>
     </div>
   );
