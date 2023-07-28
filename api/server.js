@@ -7,7 +7,8 @@ import fs from "fs";
 import path from "path";
 import "dotenv/config";
 
-const connection_string = "mongodb+srv://vikram:aditya@vikram.ekz7wos.mongodb.net/question-db";
+const connection_string =
+  "mongodb+srv://vikram:aditya@vikram.ekz7wos.mongodb.net/question-db";
 
 const app = express();
 const port = 5000;
@@ -69,15 +70,14 @@ app.post("/api/forms", upload.single("file"), async (req, res) => {
   }
 });
 
-app.get("/api/forms/:id", async(req, res) => {
+app.get("/api/forms/:id", async (req, res) => {
   try {
     const formData = await Form.findById(req.params.id);
-    console.log(formData);
     res.json(formData);
   } catch (error) {
     res.status(500).json({ error: "Error getting form question." });
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
