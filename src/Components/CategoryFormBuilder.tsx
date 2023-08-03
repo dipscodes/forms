@@ -57,10 +57,11 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
           />
           <button
             className="text-blue-700"
-            onClick={async () => {
+            onClick={() => {
               const i = document.getElementById(
                 "category-question-ans-input"
               ) as HTMLInputElement;
+              if (i.value === "") return;
               choices.push(i.value);
               setChoices(choices);
               setToggle((prev) => (prev + 1) % 2);
@@ -71,30 +72,37 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
         </div>
         <div
           key={toggle}
-          className="w-auto h-autos flex flex-col-reverse justify-start items-start mt-3"
+          className="w-auto h-auto flex flex-col-reverse justify-start items-start mt-3"
         >
           {choices.map((value, index) => {
             return (
               <div
                 key={index}
-                className="w-auto h-10 border-2 border-solid border-blue-700 items-center my-1 px-2 flex flex-row justify-start rounded-md cursor-pointer"
-                onClick={(e) => {
-                  const targetElement = e.currentTarget as HTMLDivElement;
-                  setChoices(
-                    choices.filter(
-                      (item) =>
-                        item !== targetElement.querySelector("span")?.innerText
-                    )
-                  );
-                  setToggle((prev) => (prev + 1) % 2);
-                }}
+                className="w-auto h-10 border-2 border-solid border-blue-700 items-center my-1 px-2 flex flex-row justify-start rounded-md hover:bg-slate-300"
+                draggable={true}
               >
                 <MdOutlineDragIndicator
                   size={25}
-                  className="border-r-2 border-solid border-blue-700 h-10/12 pr-1 w-auto"
+                  className="border-r-2 border-solid border-blue-700 h-10/12 pr-1 w-auto cursor-pointer"
                 />
                 <span className="mx-3">{value}</span>
-                <RxCrossCircled size={25} />
+                <RxCrossCircled
+                  size={25}
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    setChoices(
+                      choices.filter(
+                        (item) =>
+                          item !==
+                          (
+                            (e.currentTarget as SVGAElement)
+                              .parentNode as HTMLDivElement
+                          ).querySelector("span")?.innerText
+                      )
+                    );
+                    setToggle((prev) => (prev + 1) % 2);
+                  }}
+                />
               </div>
             );
           })}
