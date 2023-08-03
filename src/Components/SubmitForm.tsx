@@ -1,9 +1,9 @@
 interface Props {
-  submitAnwer(): void;
+  submitForm(): void;
   previewLink: string;
 }
 
-const Submit = ({ submitAnwer, previewLink }: Props) => {
+const SubmitForm = ({ submitForm, previewLink }: Props) => {
   return (
     <div
       className={`w-8/12 h-auto min-h-[50%] flex flex-col justify-start items-start`}
@@ -13,7 +13,7 @@ const Submit = ({ submitAnwer, previewLink }: Props) => {
         <div className="relative">
           <div
             className="border-2 border-solid border-violet-800 my-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600 hover:text-white transition-all ease-in-out duration-150 relative"
-            onClick={() => submitAnwer()}
+            onClick={() => submitForm()}
           >
             Submit
           </div>
@@ -28,4 +28,4 @@ const Submit = ({ submitAnwer, previewLink }: Props) => {
   );
 };
 
-export default Submit;
+export default SubmitForm;

@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/edit/:id",
+    element: <EditForm />
+  },
+  {
     path: "/:id",
     element: <EditForm />
   }

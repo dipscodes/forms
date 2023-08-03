@@ -9,7 +9,7 @@ import OneQForm from "./OneQFrom";
 import CategoryFormBuilder from "./CategoryFormBuilder";
 import SubmitForm from "./SubmitForm";
 
-const Display = () => {
+const FormBuilder = () => {
   const [categoryQuestion, setCategoryQuestion] = useState<string>("");
   // const [broadAnswer, setBroadAnswer] = useState<string>("");
   // const [scaleAnswer, setScaleAnswer] = useState<number>(0);
@@ -122,4 +122,4 @@ const Display = () => {
   );
 };
 
-export default Display;
+export default FormBuilder;
