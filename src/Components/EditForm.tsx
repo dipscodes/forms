@@ -10,7 +10,7 @@ import CategoryFormBuilder from "./CategoryFormBuilder";
 import SubmitForm from "./SubmitForm";
 
 const Display = () => {
-  const [categoryQuestion, setCategoryQuestion] = useState<string>("");
+  const [categoryQuestion, setCategoryQuestion] = useState<object>({});
   // const [broadAnswer, setBroadAnswer] = useState<string>("");
   // const [scaleAnswer, setScaleAnswer] = useState<number>(0);
   // const [file, setFile] = useState<any>("");
@@ -32,13 +32,13 @@ const Display = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addCategoryQuestion = useCallback((question: string) => {
+  const addCategoryQuestion = useCallback((question: object) => {
     setCategoryQuestion(question);
   }, []);
 
   const submitForm = useCallback(() => {
     const formData = new FormData();
-    formData.append("mcq", categoryQuestion);
+    formData.append("mcq", JSON.stringify(categoryQuestion));
     //   formData.append("broad", broadAnswer);
     //   formData.append("scale", scaleAnswer.toString());
     //   formData.append("file", file);

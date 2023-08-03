@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import EditForm from "./Components/EditForm";
+import FormBuilder from "./Components/FormBuilder";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,8 @@ const router = createBrowserRouter([
     element: <EditForm />
   },
   {
-    path: "/:id",
-    element: <EditForm />
+    path: "/formbuilder",
+    element: <FormBuilder />
   }
 ]);
 

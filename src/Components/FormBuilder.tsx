@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import OneQForm from "./OneQFrom";
 // import MCQ from "./MCQ";
@@ -10,35 +10,35 @@ import CategoryFormBuilder from "./CategoryFormBuilder";
 import SubmitForm from "./SubmitForm";
 
 const FormBuilder = () => {
-  const [categoryQuestion, setCategoryQuestion] = useState<string>("");
+  const [categoryQuestion, setCategoryQuestion] = useState<object>({});
   // const [broadAnswer, setBroadAnswer] = useState<string>("");
   // const [scaleAnswer, setScaleAnswer] = useState<number>(0);
   // const [file, setFile] = useState<any>("");
 
   const { id } = useParams();
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(`http://146.190.87.202:5000/api/forms/${id}`, {
-        method: "GET",
-      });
-      const v = await res.json();
-      console.log(v);
-      // setMcqAnswer(v.mcq);
-      // setBroadAnswer(v.broad);
-      // setScaleAnswer(v.scale);
-      // setFile(v.file);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await fetch(`http://146.190.87.202:5000/api/forms/${id}`, {
+  //       method: "GET",
+  //     });
+  //     const v = await res.json();
+  //     console.log(v);
+  //     setMcqAnswer(v.mcq);
+  //     setBroadAnswer(v.broad);
+  //     setScaleAnswer(v.scale);
+  //     setFile(v.file);
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  const addCategoryQuestion = useCallback((question: string) => {
+  const addCategoryQuestion = useCallback((question: object) => {
     setCategoryQuestion(question);
   }, []);
 
   const submitForm = useCallback(() => {
     const formData = new FormData();
-    formData.append("mcq", categoryQuestion);
+    formData.append("mcq", JSON.stringify(categoryQuestion));
     //   formData.append("broad", broadAnswer);
     //   formData.append("scale", scaleAnswer.toString());
     //   formData.append("file", file);
@@ -63,21 +63,9 @@ const FormBuilder = () => {
   //   setFile(ans);
   // };
 
-  // const submitAnwer = () => {
-  //   const formData = new FormData();
-  //   formData.append("mcq", mcqAnswer);
-  //   formData.append("broad", broadAnswer);
-  //   formData.append("scale", scaleAnswer.toString());
-  //   formData.append("file", file);
-
-  //   fetch("http://146.190.87.202:5000/api/forms", {
-  //     method: "POST",
-  //     body: formData,
-  //   });
-  // };
 
   return (
-    <div className="w-full h-[500vh] min-h-[500vh] flex flex-col justify-start items-center">
+    <div className="w-full h-[400vh] min-h-[400vh] flex flex-col justify-start items-center">
       <OneQForm classname="">
         <CategoryFormBuilder
           className=""
