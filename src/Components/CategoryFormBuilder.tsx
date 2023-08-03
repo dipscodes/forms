@@ -13,6 +13,7 @@ interface Props {
 
 const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
   const [choices, setChoices] = useState<string[]>([]);
+  const [enter, setEnter] = useState<Boolean>(false);
   interface TProps {
     questionStatement: string | null;
     choices: string[];
@@ -28,6 +29,14 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
   };
   const [question, setQuestion] = useState(templateQuestion);
   const [toggle, setToggle] = useState(0);
+
+  const swapElements = (array: string[], index1: number, index2: number) => {
+    const newArray = [...array]; // Create a shallow copy of the original array
+    const temp = newArray[index1];
+    newArray[index1] = newArray[index2];
+    newArray[index2] = temp;
+    return newArray;
+  };
 
   return (
     <div
@@ -78,12 +87,49 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
             return (
               <div
                 key={index}
-                className="w-auto h-10 border-2 border-solid border-blue-700 items-center my-1 px-2 flex flex-row justify-start rounded-md hover:bg-slate-300"
+                className="w-auto h-10 border-2 border-solid border-blue-700 items-center my-1 px-2 flex flex-row justify-start rounded-md hover:bg-slate-300 cursor-grab"
                 draggable={true}
+                onDragStart={(e) => {
+                  e.dataTransfer.effectAllowed = "move";
+                  e.dataTransfer.setData("index", `${index}`);
+                  e.dataTransfer.setData("enter", "false");
+                  setEnter(false);
+                }}
+                onDragEnter={async (e) => {
+                  e.preventDefault();
+                  e.dataTransfer.effectAllowed = "move";
+                  if (index === parseInt(e.dataTransfer.getData("index")))
+                    return;
+                  if (!enter) {
+                    e.dataTransfer.dropEffect = "move";
+                    setEnter(true);
+                    setChoices(swapElements(
+                      choices,
+                      index,
+                      parseInt(e.dataTransfer.getData("index"))
+                    ));
+                    setToggle((prev) => (prev + 1) % 2);
+                    console.log(choices);
+                  }
+                }}
+                onDragLeave={async (e) => {
+                  e.preventDefault();
+                  if (enter) {
+                    e.dataTransfer.dropEffect = "none";
+                    setEnter(false);
+                    setChoices(swapElements(
+                      choices,
+                      index,
+                      parseInt(e.dataTransfer.getData("index"))
+                    ));
+                    setToggle((prev) => (prev + 1) % 2);
+                    console.log(choices);
+                  }
+                }}
               >
                 <MdOutlineDragIndicator
                   size={25}
-                  className="border-r-2 border-solid border-blue-700 h-10/12 pr-1 w-auto cursor-pointer"
+                  className="border-r-2 border-solid border-blue-700 h-10/12 pr-1 w-auto"
                 />
                 <span className="mx-3">{value}</span>
                 <RxCrossCircled
