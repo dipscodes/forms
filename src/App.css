@@ -10,3 +10,17 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.item {
+  transition:
+    height 50ms ease-in-out;
+}
+
+.item.insight {
+  transition-delay: 0s;
+  height: 4rem;
+}
+
+.item.outsight {
+  height: 0.75rem;
+}

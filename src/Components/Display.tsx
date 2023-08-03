@@ -48,12 +48,19 @@ const Display = () => {
     <div className="w-full h-full flex flex-col justify-start items-center">
       <OneQForm classname="">
         <div className="w-2/4 h-[200px] flex flex-row justify-between items-center">
-          <div className="border-2 border-solid border-zinc-800 w-5/12 h-20 rounded-lg items-center flex flex-row justify-center text-4xl cursor-pointer py-5 hover:bg-green-800 hover:text-cyan-100 transition-all duration-200 ease-in-out">
-            <span>Form Builder</span>
-          </div>
-          <div className="border-2 border-solid border-zinc-800 w-5/12 h-20 rounded-lg items-center flex flex-row justify-center text-4xl cursor-pointer py-5 hover:bg-green-800 hover:text-cyan-100 transition-all duration-200 ease-in-out">
+          <a href="/formbuilder" className="w-5/12 h-20">
+            <div className="border-2 border-solid border-zinc-800 rounded-lg items-center flex flex-row justify-center text-4xl cursor-pointer py-5 hover:bg-green-800 hover:text-cyan-100 transition-all duration-200 ease-in-out">
+              <span>Form Builder</span>
+            </div>
+          </a>
+
+          <a href="/showforms" className="w-5/12 h-20">
+          <div className="border-2 border-solid border-zinc-800 rounded-lg items-center flex flex-row justify-center text-4xl cursor-pointer py-5 hover:bg-green-800 hover:text-cyan-100 transition-all duration-200 ease-in-out">
             <span>Show Forms</span>
           </div>
+          </a>
+
+          
         </div>
       </OneQForm>
       {/* <OneQForm classname="">

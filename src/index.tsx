@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import EditForm from "./Components/EditForm";
 import FormBuilder from "./Components/FormBuilder";
+import ShowForms from "./Components/ShowForms";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/formbuilder",
     element: <FormBuilder />
+  },
+  {
+    path: "/showforms",
+    element: <ShowForms />
   }
 ]);
 
