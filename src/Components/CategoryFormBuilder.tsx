@@ -21,7 +21,6 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
     categories: string[];
     answer: object;
   }
-
   const templateQuestion: TProps = {
     questionStatement: null,
     choices: [],
@@ -31,26 +30,25 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
   const [question, setQuestion] = useState(templateQuestion);
   const [toggle, setToggle] = useState(0);
 
-  // const swapElements = (array: string[], index1: number, index2: number) => {
-  //   const newArray = [...array]; // Create a shallow copy of the original array
-  //   const temp = newArray[index1];
-  //   newArray[index1] = newArray[index2];
-  //   newArray[index2] = temp;
-  //   return newArray;
-  // };
-
-  // const removeElementFromArray = (array: string[], elementToRemove: string) => {
-  //   const newArray = [...array];
-  //   let index = newArray.indexOf(elementToRemove);
-  //   if (index !== -1) {
-  //     newArray.splice(index, 1);
-  //   }
-  //   return newArray;
-  // };
+  const moveElementIndexToIndex = (
+    array: string[],
+    sourceIndex: number,
+    destinationIndex: number
+  ): string[] => {
+    var copyList = [...array];
+    var removedElement = copyList.splice(sourceIndex, 1)[0];
+    copyList.push(removedElement);
+    let dIndex = destinationIndex;
+    (sourceIndex > destinationIndex)? dIndex = destinationIndex + 1 : dIndex = destinationIndex;
+    if (dIndex >= copyList.length)
+      dIndex = copyList.length - 1;
+    copyList.splice(dIndex, 0, copyList.pop() as string);
+    return copyList;
+  };
 
   const dragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.dataTransfer.effectAllowed = "move";
+
     const conditionOne =
       `empty-${parseInt(e.dataTransfer.getData("index")) + 1}` ===
       (e.target as HTMLDivElement).id;
@@ -71,20 +69,37 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
       (e.target as HTMLDivElement).id;
     if (!(conditionOne || conditionTwo)) {
       (e.target as HTMLDivElement).classList.replace("insight", "outsight");
-      console.log("left");
+    }
+  };
+
+  const dragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "none";
+    if (
+      !(
+        `empty-${parseInt(e.dataTransfer.getData("index")) + 1}` ===
+          (e.target as HTMLDivElement).id ||
+        `empty-${e.dataTransfer.getData("index")}` ===
+          (e.target as HTMLDivElement).id
+      )
+    ) {
+      e.dataTransfer.dropEffect = "move";
     }
   };
 
   const dragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("index", `${index}`);
     e.dataTransfer.setData("enter", "false");
-    setEnter(false);
+    // (e.target as HTMLDivElement).style.display = "none";
   };
 
-  const dragDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const dragDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault();
-    console.log("dropped");
+    setChoices(
+      moveElementIndexToIndex(choices, parseInt(e.dataTransfer.getData("index")), index)
+    );
+    console.log(choices, parseInt(e.dataTransfer.getData("index")), index);
+    setToggle((prev) => (prev + 1) % 2);
   };
 
   const addOption = () => {
@@ -117,7 +132,7 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
 
   return (
     <div
-      className={`w-8/12 h-auto min-h-[80%] flex flex-col justify-start items-start`}
+      className={`w-8/12 h-auto min-h-[80%] flex flex-col justify-start items-start ${className}`}
     >
       <div id="cat-q">
         <input
@@ -151,6 +166,8 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
             className="w-full item outsight"
             onDragEnter={dragEnter}
             onDragLeave={dragLeave}
+            onDragOver={dragOver}
+            onDrop={(e) => dragDrop(e, -1)}
           ></div>
           {choices.map((value, index) => {
             const indexPlusOne = index + 1;
@@ -161,14 +178,13 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
                   className="w-auto item outsight"
                   onDragEnter={dragEnter}
                   onDragLeave={dragLeave}
-                  onDrop={dragDrop}
+                  onDragOver={dragOver}
+                  onDrop={(e) => dragDrop(e, index)}
                 ></div>
                 <div
-                  className="w-auto h-10 border-2 border-solid border-blue-700 items-center px-2 flex flex-row justify-start rounded-md hover:bg-slate-300 cursor-grab"
+                  className="w-auto h-10 border-2 border-solid border-blue-700 items-center px-2 flex flex-row justify-start rounded-md hover:bg-slate-300 cursor-pointer"
                   draggable={true}
-                  onDragStart={(e: React.DragEvent<HTMLDivElement>) =>
-                    dragStart(e, index)
-                  }
+                  onDragStart={(e) => dragStart(e, index)}
                 >
                   <MdOutlineDragIndicator
                     size={25}

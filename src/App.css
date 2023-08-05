@@ -13,14 +13,17 @@
 
 .item {
   transition:
-    height 50ms ease-in-out;
+    height 50ms ease-in-out, border 50ms ease-in-out;
 }
 
 .item.insight {
   transition-delay: 0s;
   height: 4rem;
+  border: darkcyan dotted 2px;
+  border-radius: 10px;
 }
 
 .item.outsight {
   height: 0.75rem;
+  border: none;
 }
