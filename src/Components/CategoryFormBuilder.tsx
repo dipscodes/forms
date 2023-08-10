@@ -5,9 +5,6 @@ import { MdOutlineDragIndicator } from "react-icons/md";
 
 interface Props {
   className?: string;
-  // index: number;
-  // question: string;
-  // options: string[];
   addCategoryQuestion(question: object): void;
 }
 
@@ -39,9 +36,10 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
     var removedElement = copyList.splice(sourceIndex, 1)[0];
     copyList.push(removedElement);
     let dIndex = destinationIndex;
-    (sourceIndex > destinationIndex)? dIndex = destinationIndex + 1 : dIndex = destinationIndex;
-    if (dIndex >= copyList.length)
-      dIndex = copyList.length - 1;
+    sourceIndex > destinationIndex
+      ? (dIndex = destinationIndex + 1)
+      : (dIndex = destinationIndex);
+    if (dIndex >= copyList.length) dIndex = copyList.length - 1;
     copyList.splice(dIndex, 0, copyList.pop() as string);
     return copyList;
   };
@@ -90,13 +88,16 @@ const CategoryFormBuilder = ({ className, addCategoryQuestion }: Props) => {
   const dragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.dataTransfer.setData("index", `${index}`);
     e.dataTransfer.setData("enter", "false");
-    // (e.target as HTMLDivElement).style.display = "none";
   };
 
   const dragDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault();
     setChoices(
-      moveElementIndexToIndex(choices, parseInt(e.dataTransfer.getData("index")), index)
+      moveElementIndexToIndex(
+        choices,
+        parseInt(e.dataTransfer.getData("index")),
+        index
+      )
     );
     console.log(choices, parseInt(e.dataTransfer.getData("index")), index);
     setToggle((prev) => (prev + 1) % 2);

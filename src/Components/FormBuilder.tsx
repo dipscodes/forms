@@ -63,7 +63,6 @@ const FormBuilder = () => {
   //   setFile(ans);
   // };
 
-
   return (
     <div className="w-full h-[400vh] min-h-[400vh] flex flex-col justify-start items-center">
       <OneQForm classname="">
